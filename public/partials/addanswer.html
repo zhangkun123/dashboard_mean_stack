@@ -1,0 +1,55 @@
+<div ng-controller="TopicController">
+
+<h3 ng-bind="post.post"></h3>
+<h4 ng-bind="post.description"></h4>
+<br>
+<div class="col-md-6 col-md-offset-1 col-xs-12">
+
+<form class="form-horizontal well" name="answerForm" novalidate>
+  <div class="form-group" 
+
+	ng-class="{
+            'has-error': answerForm.post.$invalid &&  answerForm.post.$dirty || answerForm.post.$pristine && answerForm.submitted,
+            'has-success': answerForm.post.$valid && answerForm.post.$dirty
+            }"
+ 	 >
+	
+    <label class="col-sm-2 control-label">Answer:</label>
+    <div class="col-sm-10">
+      <textarea name="post" class="form-control" ng-model="newPost.post" required ng-minlength = "5"></textarea>
+
+		 <p class="help-block" ng-show="answerForm.post.$error.required && answerForm.post.$dirty && answerForm.submitted || answerForm.submitted && answerForm.post.$pristine ">
+            Answer is required
+          </p>
+          <p class="help-block" 
+          ng-show="answerForm.post.$error.minlength && answerForm.post.$dirty && answerForm.submitted">
+          Answer should contain at least 5 characters
+        </p>
+
+      <input type="hidden"  ng-model="newPost.user_id" value="{{user.user_id}}" ng-init="newPost.user_id = user.user_id">
+       <input type="hidden" ng-model="newPost.username" value="{{user.first_name}}" ng-init="newPost.username = user.first_name">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Supporting details (optional):</label>
+    <div class="col-sm-10">
+      <textarea class="form-control" rows="3" ng-model="newPost.support"> </textarea>
+		<input type="hidden" ng-model="newPost.post_id" value="{{post._id}}" ng-init="newPost.post_id = post._id">
+          
+        <input type="hidden"  ng-model="newPost.user_id" value="{{user.user_id}}" ng-init="newPost.user_id = user.user_id">
+       <input type="hidden" ng-model="newPost.user_name" value="{{user.first_name}}" ng-init="newPost.user_name = user.first_name">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+     <a  class="btn btn-default" href="#/">Cancel</a>
+      <button type="submit" class="btn btn-primary" ng-click="addAnswer(post)">Answer</button>
+    </div>
+  </div>
+</form>	
+
+</div>	
+
+
+</div>
